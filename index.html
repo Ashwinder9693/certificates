@@ -3,74 +3,207 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Certificates</title>
+  <title>My Certificates | Ashwinder</title>
+
   <style>
-    body { font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa; text-align: center; margin: 40px; }
-    h1 { margin-bottom: 20px; }
-    .tab {
-      overflow: hidden; background-color: #fff; border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 20px;
+    :root {
+      --primary: #2c3e50;
+      --background: #f6f8fb;
+      --card-bg: #ffffff;
+      --shadow: rgba(0, 0, 0, 0.08);
+      --border: #e9ecef;
     }
-    .tab button {
-      background-color: inherit; border: none; outline: none;
-      cursor: pointer; padding: 14px 20px; transition: 0.3s;
-      font-size: 16px;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--background);
+      min-height: 100vh;
     }
-    .tab button:hover { background-color: #e9ecef; }
-    .tab button.active { background-color: #0078ff; color: white; }
-    .cert-content { display: none; animation: fadeEffect 0.5s; }
-    @keyframes fadeEffect { from { opacity: 0; } to { opacity: 1; } }
-    iframe {
-      width: 80%; height: 600px; border: 1px solid #ccc;
-      border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 16px 48px;
+    }
+    header { text-align: center; margin-bottom: 28px; }
+    header h1 { font-size: 2.25rem; color: var(--primary); font-weight: 800; }
+    header p { color: #6c757d; margin-top: 6px; }
+
+    .dropdown-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--shadow);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .dropdown-label {
+      display: block;
+      font-size: .85rem;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      color: #495057;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    select {
+      width: 100%;
+      padding: 14px 18px;
+      font-size: 1rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
+      color: #212529;
+      appearance: none;
+      transition: .2s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; background-size: 20px; padding-right: 48px;
+    }
+    select:hover, select:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 4px rgba(44,62,80,.08); }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--shadow);
+      padding: 22px;
+      margin-top: 18px;
+    }
+    .cert-header {
+      text-align: center;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cert-title { font-size: 1.6rem; font-weight: 800; color: var(--primary); }
+    .cert-sub { color: #6c757d; margin-top: 6px; }
+
+    .viewer {
+      width: 100%;
+      height: 78vh;      /* tall, but avoids extra gray space */
+      max-height: 1000px;
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 1.8rem; }
+      .viewer { height: 70vh; }
     }
   </style>
 </head>
 <body>
-  <h1>My Certificates</h1>
+  <div class="container">
+    <header>
+      <h1>My Oracle Certificates</h1>
+      <p>Professional certifications in AI and Data Science</p>
+    </header>
 
-  <div class="tab">
-    <button class="tablinks active" onclick="openCert(event, 'cert1')">AI Vector Search</button>
-    <button class="tablinks" onclick="openCert(event, 'cert2')">Data Science Professional</button>
-    <button class="tablinks" onclick="openCert(event, 'cert3')">Generative AI Professional</button>
-    <button class="tablinks" onclick="openCert(event, 'cert4')">AI Foundations Associate</button>
+    <div class="dropdown-container">
+      <label class="dropdown-label">Select a Certificate</label>
+      <select id="certSelect">
+        <option value="">Choose a certificate to view…</option>
+        <option value="ai-vector-search">AI Vector Search Certified Professional</option>
+        <option value="data-science">Data Science Professional 2025</option>
+        <option value="generative-ai">Generative AI Professional 2025</option>
+        <option value="ai-foundations">AI Foundations Associate 2025</option>
+      </select>
+    </div>
+
+    <!-- AI Vector Search -->
+    <section id="ai-vector-search" class="card hidden">
+      <div class="cert-header">
+        <div class="cert-title">AI Vector Search</div>
+        <div class="cert-sub">Oracle AI Vector Search Certified Professional</div>
+      </div>
+      <iframe id="frame-ai-vector-search" class="viewer" loading="lazy"></iframe>
+    </section>
+
+    <!-- Data Science -->
+    <section id="data-science" class="card hidden">
+      <div class="cert-header">
+        <div class="cert-title">Data Science Professional</div>
+        <div class="cert-sub">Oracle Cloud Infrastructure 2025 Certified Data Science Professional</div>
+      </div>
+      <iframe id="frame-data-science" class="viewer" loading="lazy"></iframe>
+    </section>
+
+    <!-- Generative AI -->
+    <section id="generative-ai" class="card hidden">
+      <div class="cert-header">
+        <div class="cert-title">Generative AI Professional</div>
+        <div class="cert-sub">Oracle Cloud Infrastructure 2025 Certified Generative AI Professional</div>
+      </div>
+      <iframe id="frame-generative-ai" class="viewer" loading="lazy"></iframe>
+    </section>
+
+    <!-- AI Foundations -->
+    <section id="ai-foundations" class="card hidden">
+      <div class="cert-header">
+        <div class="cert-title">AI Foundations Associate</div>
+        <div class="cert-sub">Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate</div>
+      </div>
+      <iframe id="frame-ai-foundations" class="viewer" loading="lazy"></iframe>
+    </section>
   </div>
 
- <div class="tab">
-  <button class="tablinks active" onclick="openCert(event, 'cert1')">AI Vector Search</button>
-  <button class="tablinks" onclick="openCert(event, 'cert2')">Data Science Professional</button>
-  <button class="tablinks" onclick="openCert(event, 'cert3')">Generative AI Professional</button>
-  <button class="tablinks" onclick="openCert(event, 'cert4')">AI Foundations Associate</button>
-</div>
-
-<div id="cert1" class="cert-content" style="display:block;">
-  <iframe src="https://drive.google.com/viewerng/viewer?embedded=true&url=https://raw.githubusercontent.com/Ashwinder9693/certificates/Oracle/Oracle%20AI%20Vector%20Search%20Certified%20Professional.pdf"
-          width="80%" height="600" style="border:1px solid #ccc;border-radius:8px"></iframe>
-</div>
-<div id="cert2" class="cert-content">
-  <iframe src="https://drive.google.com/viewerng/viewer?embedded=true&url=https://raw.githubusercontent.com/Ashwinder9693/certificates/Oracle/Oracle%20Cloud%20Infrastructure%202025%20Certified%20Data%20Science%20Professional.pdf"
-          width="80%" height="600" style="border:1px solid #ccc;border-radius:8px"></iframe>
-</div>
-<div id="cert3" class="cert-content">
-  <iframe src="https://drive.google.com/viewerng/viewer?embedded=true&url=https://raw.githubusercontent.com/Ashwinder9693/certificates/Oracle/Oracle%20Cloud%20Infrastructure%202025%20Certified%20Generative%20AI%20Professional.pdf"
-          width="80%" height="600" style="border:1px solid #ccc;border-radius:8px"></iframe>
-</div>
-<div id="cert4" class="cert-content">
-  <iframe src="https://drive.google.com/viewerng/viewer?embedded=true&url=https://raw.githubusercontent.com/Ashwinder9693/certificates/Oracle/Oracle%20Cloud%20Infrastructure%202025%20Certified%20AI%20Foundations%20Associate.pdf"
-          width="80%" height="600" style="border:1px solid #ccc;border-radius:8px"></iframe>
-</div>
-
-
   <script>
-    function openCert(evt, certName) {
-      const contents = document.getElementsByClassName("cert-content");
-      for (let c of contents) c.style.display = "none";
-      const links = document.getElementsByClassName("tablinks");
-      for (let l of links) l.classList.remove("active");
-      document.getElementById(certName).style.display = "block";
-      evt.currentTarget.classList.add("active");
-    }
-  </script>
+    // Raw GitHub URLs for your PDFs
+    const RAW = {
+      "ai-vector-search": "https://raw.githubusercontent.com/Ashwinder9693/certificates/Oracle/Oracle%20AI%20Vector%20Search%20Certified%20Professional.pdf",
+      "data-science":    "https://raw.githubusercontent.com/Ashwinder9693/certificates/Oracle/Oracle%20Cloud%20Infrastructure%202025%20Certified%20Data%20Science%20Professional.pdf",
+      "generative-ai":   "https://raw.githubusercontent.com/Ashwinder9693/certificates/Oracle/Oracle%20Cloud%20Infrastructure%202025%20Certified%20Generative%20AI%20Professional.pdf",
+      "ai-foundations":  "https://raw.githubusercontent.com/Ashwinder9693/certificates/Oracle/Oracle%20Cloud%20Infrastructure%202025%20Certified%20AI%20Foundations%20Associate.pdf"
+    };
 
+    // Use Mozilla's PDF.js viewer with a properly encoded file param
+    const PDFJS_VIEWER = "https://mozilla.github.io/pdf.js/web/viewer.html?file=";
+
+    const select = document.getElementById("certSelect");
+    const sections = Array.from(document.querySelectorAll("section.card"));
+
+    function setIframeSrc(id) {
+      const iframe = document.getElementById("frame-" + id);
+      if (!iframe.src) {
+        const encoded = encodeURIComponent(RAW[id]);
+        iframe.src = PDFJS_VIEWER + encoded;   // e.g. ...viewer.html?file=https%3A%2F%2Fraw.githubusercontent.com%2F...
+      }
+    }
+
+    function show(id) {
+      // Hide all
+      sections.forEach(s => s.classList.add("hidden"));
+      // Show selected
+      const el = document.getElementById(id);
+      if (el) {
+        el.classList.remove("hidden");
+        setIframeSrc(id);
+        select.value = id;
+        history.replaceState(null, "", "#" + id);
+      }
+    }
+
+    function handleHash() {
+      const id = location.hash.replace("#", "");
+      if (RAW[id]) {
+        show(id);
+      } else {
+        // No valid hash -> default to first option or keep all hidden
+        select.value = "";
+        sections.forEach(s => s.classList.add("hidden"));
+      }
+    }
+
+    select.addEventListener("change", (e) => {
+      const id = e.target.value;
+      if (RAW[id]) show(id);
+    });
+
+    window.addEventListener("hashchange", handleHash);
+    window.addEventListener("load", handleHash);
+  </script>
 </body>
 </html>
