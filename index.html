@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Certificates</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa; text-align: center; margin: 40px; }
+    h1 { margin-bottom: 20px; }
+    .tab {
+      overflow: hidden; background-color: #fff; border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 20px;
+    }
+    .tab button {
+      background-color: inherit; border: none; outline: none;
+      cursor: pointer; padding: 14px 20px; transition: 0.3s;
+      font-size: 16px;
+    }
+    .tab button:hover { background-color: #e9ecef; }
+    .tab button.active { background-color: #0078ff; color: white; }
+    .cert-content { display: none; animation: fadeEffect 0.5s; }
+    @keyframes fadeEffect { from { opacity: 0; } to { opacity: 1; } }
+    iframe {
+      width: 80%; height: 600px; border: 1px solid #ccc;
+      border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>My Certificates</h1>
+
+  <div class="tab">
+    <button class="tablinks active" onclick="openCert(event, 'cert1')">AI Vector Search</button>
+    <button class="tablinks" onclick="openCert(event, 'cert2')">Data Science Professional</button>
+    <button class="tablinks" onclick="openCert(event, 'cert3')">Generative AI Professional</button>
+    <button class="tablinks" onclick="openCert(event, 'cert4')">AI Foundations Associate</button>
+  </div>
+
+  <div id="cert1" class="cert-content" style="display:block;">
+    <iframe src="https://raw.githubusercontent.com/Ashwinder9693/certificates/Oracle/Oracle%20AI%20Vector%20Search%20Certified%20Professional.pdf"></iframe>
+  </div>
+
+  <div id="cert2" class="cert-content">
+    <iframe src="https://raw.githubusercontent.com/Ashwinder9693/certificates/Oracle/Oracle%20Cloud%20Infrastructure%202025%20Certified%20Data%20Science%20Professional.pdf"></iframe>
+  </div>
+
+  <div id="cert3" class="cert-content">
+    <iframe src="https://raw.githubusercontent.com/Ashwinder9693/certificates/Oracle/Oracle%20Cloud%20Infrastructure%202025%20Certified%20Generative%20AI%20Professional.pdf"></iframe>
+  </div>
+
+  <div id="cert4" class="cert-content">
+    <iframe src="https://raw.githubusercontent.com/Ashwinder9693/certificates/Oracle/Oracle%20Cloud%20Infrastructure%202025%20Certified%20AI%20Foundations%20Associate.pdf"></iframe>
+  </div>
+
+  <script>
+    function openCert(evt, certName) {
+      const contents = document.getElementsByClassName("cert-content");
+      for (let c of contents) c.style.display = "none";
+      const links = document.getElementsByClassName("tablinks");
+      for (let l of links) l.classList.remove("active");
+      document.getElementById(certName).style.display = "block";
+      evt.currentTarget.classList.add("active");
+    }
+  </script>
+
+</body>
+</html>
